@@ -1,28 +1,17 @@
-import React,{useContext} from 'react'
+import React, { useContext } from "react";
 import { AllItemsContext } from "../Context/AllItemsContext";
+import List from "./List";
 
 function SelectedItems() {
   const { checked } = useContext(AllItemsContext);
   return (
-    <table className='SelectedItems'>
-    <thead>
-    <tr>
-      <th>SelectedItems</th>
-    </tr>
-    </thead>
-    <tbody>
-      {checked.map((item) => {
-        return (
-          <tr  key={item.id}>
-            <td  key={item.id}>
-              {item.title}
-            </td>
-          </tr>
-        );
-      })}
-    </tbody>
-  </table>
-  )
+    <ul className="SelectedItems">
+      <li key={0}>
+        <h3>SelectedItems</h3>
+      </li>
+      {checked.map((item) =><List id={item.id} title={item.title}/>)}
+    </ul>
+  );
 }
 
-export default SelectedItems
+export default SelectedItems;

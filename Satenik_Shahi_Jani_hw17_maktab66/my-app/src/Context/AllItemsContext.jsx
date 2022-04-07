@@ -2,7 +2,7 @@ import React, { useState, createContext, useEffect } from "react";
 
 export const AllItemsContext = createContext();
 
-export const AllItemsProvider = ({children}) => {
+export const AllItemsProvider = ({ children }) => {
 
   const [items, setdataFetch] = useState([]);
 
@@ -13,38 +13,51 @@ export const AllItemsProvider = ({children}) => {
       .then((response) => response.json())
       .then((res) => {
         setdataFetch(res);
-        setChecked(res.filter((item)=>item.isExpired!==false))
+        setChecked(res.filter((item) => item.isExpired !== false));
       });
-    },[])
+  }, []);
 
   // Add/Remove checked item from list
   const checkItem = (event) => {
     let updatedList = [...checked];
-    if (event.target.checked===true) {
-      let newItem={
-        "id": event.target.value,
-        "title":event.target.name,
-        "isExpired":event.target.checked
-      }
+    if (event.target.checked) {
+      let newItem = {
+        id: event.target.id,
+        title: event.target.name,
+        isExpired: event.target.checked,
+      };
+      // console.log(newItem)
       updatedList = [...checked, newItem];
-    } else {
-      updatedList.filter((item)=>item.id ===event.target.value);
-      // updatedList.map((item)=>item.title =="event.target.value");
-      items.map((item)=>{
-        if(item.id===event.target.value){
-          item.isExpired=false;
+      items.map((item) => {
+        if (item.id === event.target.id) {
+         item.isExpired = true;
         }
-      
+        return true
       });
+    } else {
+      // updatedList.filter((item) => item.title !== event.target.name);
+      updatedList.map((item, index) => {
+        if (item.id === event.target.id) {
+          updatedList.splice(index, 1);
+        }
+        return true
+      });
+      items.map((item) => {
+        if (item.id === event.target.id) {
+          item.isExpired = false;
+        }
+        return true
+      });
+      // console.log(items)
     }
-    console.log(updatedList)
+    // console.log(updatedList);
     setChecked(updatedList);
   };
 
   return (
-    <AllItemsContext.Provider value={{items,checkItem,checked}}>
+    <AllItemsContext.Provider value={{ items, checkItem, checked }}>
       {children}
     </AllItemsContext.Provider>
-  )
-}
-export default AllItemsProvider
+  );
+};
+export default AllItemsProvider;
