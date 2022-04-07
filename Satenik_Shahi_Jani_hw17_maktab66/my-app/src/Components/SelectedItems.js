@@ -9,7 +9,7 @@ function SelectedItems() {
       <li key={0}>
         <h3>SelectedItems</h3>
       </li>
-      {checked.map((item) =><List id={item.id} title={item.title}/>)}
+      {checked.map((item) =><List key={item.id} title={item.title}/>)}
     </ul>
   );
 }
