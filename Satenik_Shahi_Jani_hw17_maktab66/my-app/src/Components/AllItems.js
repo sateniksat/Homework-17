@@ -1,16 +1,35 @@
-import React, { useState,useEffect } from "react";
+import React, { useContext } from "react";
+import { AllItemsContext } from "../Context/AllItemsContext";
 
 function AllItems() {
-  const [dataFetch, setdataFetch] = useState([]);
-  useEffect(() => {
-    fetch("https://61f6a5402e1d7e0017fd6e5f.mockapi.io/names")
-      .then((response) => response.json())
-      .then((res) => {
-        setdataFetch(res);
-      });
-    },[])
+  const { items, checkItem } = useContext(AllItemsContext);
 
-  return <div>AllItems</div>;
+  return (
+    <table className="AllItems">
+      <thead>
+      <tr>
+        <th>AllItems</th>
+      </tr>
+      </thead>
+      <tbody>
+        {items.map((item) => {
+          return (
+            <tr  key={item.id}>
+              <td  key={item.id}>
+                <input
+                  value={item.id}
+                  type="checkbox"
+                  name={item.title}
+                  onChange={(e) => checkItem(e)}
+                />
+                <label>{item.title}</label>
+              </td>
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  );
 }
 
 export default AllItems;
