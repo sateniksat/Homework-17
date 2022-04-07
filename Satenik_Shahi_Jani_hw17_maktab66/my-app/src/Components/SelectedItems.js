@@ -7,7 +7,7 @@ function SelectedItems() {
   return (
     <ul className="SelectedItems">
       <li key={0}>
-        <h3>SelectedItems</h3>
+        <h3>Selected Items</h3>
       </li>
       {checked.map((item) =><List key={item.id} title={item.title}/>)}
     </ul>

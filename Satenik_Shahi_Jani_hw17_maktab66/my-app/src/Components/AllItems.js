@@ -7,7 +7,7 @@ function AllItems() {
   return (
     <ul className="AllItems">
       <li key={0}>
-        <h3>AllItems</h3>
+        <h3>All Items</h3>
       </li>
       {/* <hr/> */}
       {items.map((item) => {
